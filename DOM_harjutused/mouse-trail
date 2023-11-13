@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mouse Trail</title>
+    <style>
+        .trail {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background-color: #66cdaa;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    
+    <script>
+        document.addEventListener('mousemove', createTrail);
+
+function createTrail(event) {
+    const trail = document.createElement('div');
+    trail.className = 'trail';
+
+    // Määra jälje alguspunkt hiire kursori asukoha järgi
+    trail.style.left = (event.pageX - 3) + 'px';
+    trail.style.top = (event.pageY - 3) + 'px';
+
+    // Lisa jälje dokumenti
+    document.body.appendChild(trail);
+
+    // Käivita setTimeout, et eemaldada jälg pärast teatud aja möödumist
+    setTimeout(() => {
+        document.body.removeChild(trail);
+    }, 1000); // Siin on kasutatud 1000ms ehk 1 sekund, muuda vajadusel aega
+}
+    </script>
+</body>
+</html>
