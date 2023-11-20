@@ -17,24 +17,18 @@
 <body>
     
     <script>
-        document.addEventListener('mousemove', createTrail);
-
-function createTrail(event) {
-    const trail = document.createElement('div');
-    trail.className = 'trail';
-
-    // Määra jälje alguspunkt hiire kursori asukoha järgi
-    trail.style.left = (event.pageX - 3) + 'px';
-    trail.style.top = (event.pageY - 3) + 'px';
-
-    // Lisa jälje dokumenti
+        document.addEventListener("mousemove", function(e) {
+    const trail = document.createElement("div");
+    trail.className = "trail";
+    trail.style.left = e.pageX + "px";
+    trail.style.top = e.pageY + "px";
     document.body.appendChild(trail);
 
-    // Käivita setTimeout, et eemaldada jälg pärast teatud aja möödumist
     setTimeout(() => {
         document.body.removeChild(trail);
-    }, 1000); // Siin on kasutatud 1000ms ehk 1 sekund, muuda vajadusel aega
-}
+    }, 500); // Jälg kaob 500 ms pärast
+});
+
     </script>
 </body>
 </html>
