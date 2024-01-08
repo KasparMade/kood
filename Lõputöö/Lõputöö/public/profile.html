@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A.H. Tammsaare Profiil</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        header {
+            background-color: #3498db;
+            color: white;
+            text-align: center;
+            padding: 15px;
+        }
+
+        nav {
+            text-align: center;
+            background-color: #494949;
+            padding: 10px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #ffffff;
+        }
+
+        p {
+            color: #555;
+            margin: 5px 0;
+        }
+
+        .profile-info {
+            max-width: 400px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background-color: #3498db;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .feedback-list {
+            text-align: left;
+        }
+
+        .feedback-item {
+            margin-bottom: 10px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        #feedbackModal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        #closeModal {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+
+        #feedbackText {
+            width: 100%;
+            height: 100px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        #submitBtn {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>A. H. Tammsaare</h1>
+</header>
+
+<nav>
+    <a href="/">Avaleht</a>
+    <a href="/about">Tutvustus</a>
+    <a href="/contact">Kontakt</a>
+</nav>
+
+<main>
+    <div class="profile-info">
+        <img src="tammsaare.jpg" alt="A.H. Tammsaare" style="max-width: 100%; border-radius: 8px; margin-bottom: 20px;">
+        <p>Sündinud: 30. jaanuar 1878</p>
+        <p>Surnud: 1. märts 1940</p>
+        <p>Haridus: Tartu Ülikool</p>
+        <p>Tuntud teosed: "Tõde ja õigus", "Kõrboja peremees"</p>
+        <button onclick="openFeedbackModal()">Anna Tagasisidet</button>
+
+        <div class="feedback-list" id="feedbackList">
+            <h2>Tagasiside:</h2>
+        </div>
+    </div>
+</main>
+
+<div id="overlay"></div>
+<div id="feedbackModal">
+    <span id="closeModal" onclick="closeFeedbackModal()">X</span>
+    <h2>Tagasiside A.H. Tammsaare kohta</h2>
+    <textarea id="feedbackText" placeholder="Sisesta siia oma tagasiside..."></textarea>
+    <button id="submitBtn" onclick="submitFeedback()">Saada</button>
+</div>
+
+<script>
+    function saveFeedbackToLocalStorage(feedbackText) {
+        if (typeof(Storage) !== "undefined") {
+            let existingFeedback = JSON.parse(localStorage.getItem('feedback')) || [];
+            existingFeedback.push(feedbackText);
+            localStorage.setItem('feedback', JSON.stringify(existingFeedback));
+        } else {
+            console.error('Local storage ei ole toetatud.');
+        }
+    }
+
+    function showFeedback() {
+        const feedbackList = document.getElementById('feedbackList');
+        feedbackList.innerHTML = '';
+
+        if (typeof(Storage) !== "undefined") {
+            let existingFeedback = JSON.parse(localStorage.getItem('feedback')) || [];
+
+            if (existingFeedback.length > 0) {
+                const feedbackHeader = document.createElement('h2');
+                feedbackHeader.textContent = 'Tagasiside:';
+                feedbackList.appendChild(feedbackHeader);
+
+                existingFeedback.forEach((feedback, index) => {
+                    const feedbackItem = document.createElement('div');
+                    feedbackItem.classList.add('feedback-item');
+                    feedbackItem.textContent = `${index + 1}. ${feedback}`;
+                    feedbackList.appendChild(feedbackItem);
+                });
+            }
+        } else {
+            console.error('Local storage ei ole toetatud.');
+        }
+    }
+
+    function openFeedbackModal() {
+        document.getElementById('feedbackModal').style.display = 'block';
+        document.getElementById('overlay').style.display = 'block';
+        showFeedback();
+    }
+
+    function closeFeedbackModal() {
+        document.getElementById('feedbackModal').style.display = 'none';
+        document.getElementById('overlay').style.display = 'none';
+    }
+
+    function submitFeedback() {
+        const feedbackText = document.getElementById('feedbackText').value;
+
+        saveFeedbackToLocalStorage(feedbackText);
+
+        closeFeedbackModal();
+        showFeedback();
+    }
+
+    window.onload = showFeedback;
+</script>
+
+</body>
+</html>

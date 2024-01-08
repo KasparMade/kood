@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logi sisse ja Registreeri</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        }
+
+        form-container {
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin: 10px;
+        max-width: 300px;
+        width: 100%;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #3498db;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        h2 {
+            color: #3498db;
+        }
+    </style>
+</head>
+<body>
+
+<main>
+    <div id="login-form" class="form-container">
+        <h2>Logi sisse</h2>
+        <form id="loginForm">
+            <label for="kasutajanimi">Kasutajanimi:</label>
+            <input type="text" id="kasutajanimi" name="kasutajanimi" required>
+
+            <label for="parool">Parool:</label>
+            <input type="password" id="parool" name="parool" required>
+
+            <button type="submit">Logi sisse</button>
+        </form>
+    </div>
+
+    <div id="register-form" class="form-container">
+        <h2>Registreeri</h2>
+        <form id="registerForm">
+            <label for="regKasutajanimi">Kasutajanimi:</label>
+            <input type="text" id="regKasutajanimi" name="regKasutajanimi" required>
+
+            <label for="regParool">Parool:</label>
+            <input type="password" id="regParool" name="regParool" required>
+
+            <label for="eesnimi">Eesnimi:</label>
+            <input type="text" id="eesnimi" name="eesnimi" required>
+
+            <label for="perenimi">Perekonnanimi:</label>
+            <input type="text" id="perenimi" name="perenimi" required>
+
+            <label for="vanus">Vanus:</label>
+            <input type="number" id="vanus" name="vanus" required>
+
+            <button type="submit">Registreeri</button>
+        </form>
+    </div>
+</main>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
+
+        loginForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+            const kasutajanimi = event.target.kasutajanimi.value;
+            const parool = event.target.parool.value;
+            console.log(`Logi sisse: ${kasutajanimi}, Parool: ${parool}`);
+        });
+
+        registerForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+            const regKasutajanimi = event.target.regKasutajanimi.value;
+            const regParool = event.target.regParool.value;
+            const eesnimi = event.target.eesnimi.value;
+            const perenimi = event.target.perenimi.value;
+            const vanus = event.target.vanus.value;
+            console.log(`Registreeri: ${regKasutajanimi}, Parool: ${regParool}, Eesnimi: ${eesnimi}, Perekonnanimi: ${perenimi}, Vanus: ${vanus}`);
+        });
+    });
+</script>
+
+</body>
+</html>
