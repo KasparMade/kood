@@ -62,6 +62,9 @@
             max-width: 100%;
             border-radius: 8px;
             margin-bottom: 20px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         button {
@@ -142,24 +145,26 @@
 </header>
 
 <nav>
-    <a href="/">Avaleht</a>
+    <a href="/index">Avaleht</a>
     <a href="/about">Tutvustus</a>
     <a href="/contact">Kontakt</a>
+    <a href="/profile">Profiil</a>
+    <a href="/login">Logi välja</a>
 </nav>
 
 <main>
     <div class="profile-info">
-        <img src="tammsaare.jpg" alt="A.H. Tammsaare" style="max-width: 100%; border-radius: 8px; margin-bottom: 20px;">
-        <p>Sündinud: 30. jaanuar 1878</p>
-        <p>Surnud: 1. märts 1940</p>
-        <p>Haridus: Tartu Ülikool</p>
-        <p>Tuntud teosed: "Tõde ja õigus", "Kõrboja peremees"</p>
+        <h2>Kasutaja Profiil</h2>
+        <p>Kasutajanimi: <span id="username"></span></p>
+        <p>Eesnimi: <span id="firstName"></span></p>
+        <p>Perekonnanimi: <span id="lastName"></span></p>
+        <p>Vanus: <span id="age"></span></p>
         <button onclick="openFeedbackModal()">Anna Tagasisidet</button>
-
         <div class="feedback-list" id="feedbackList">
             <h2>Tagasiside:</h2>
         </div>
     </div>
+    
 </main>
 
 <div id="overlay"></div>
@@ -194,11 +199,12 @@
                 feedbackList.appendChild(feedbackHeader);
 
                 existingFeedback.forEach((feedback, index) => {
-                    const feedbackItem = document.createElement('div');
-                    feedbackItem.classList.add('feedback-item');
-                    feedbackItem.textContent = `${index + 1}. ${feedback}`;
-                    feedbackList.appendChild(feedbackItem);
-                });
+                const feedbackItem = document.createElement('div');
+                feedbackItem.classList.add('feedback-item');
+                feedbackItem.textContent = `${index + 1}. ${feedback}`;
+                feedbackList.appendChild(feedbackItem);
+            });
+
             }
         } else {
             console.error('Local storage ei ole toetatud.');
