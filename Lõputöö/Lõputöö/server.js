@@ -47,7 +47,7 @@ app.get('/logout', (req, res) => {
 });
 
 app.post('/register', (req, res) => {
-    const { username, password, firstName, lastName, age, gender } = req.body;
+    const { username, password, firstName, lastName, age } = req.body;
 
     
     if (users[username]) {
@@ -61,7 +61,7 @@ app.post('/register', (req, res) => {
         firstName,
         lastName,
         age,
-        gender
+
     };
 
     console.log('User registered:', users[username]);
@@ -107,8 +107,8 @@ app.get('/profile', requireAuth, (req, res) => {
     res.render('profile', { user });
 });
 
-app.get('/index', requireAuth, (req, res) => {
-    res.sendFile(__dirname + '/public/index.html');
+app.get('/home', requireAuth, (req, res) => {
+    res.sendFile(__dirname + '/public/home.html');
 });
 
 app.listen(port, () => {

@@ -145,7 +145,7 @@
 </header>
 
 <nav>
-    <a href="/index">Avaleht</a>
+    <a href="/home">Avaleht</a>
     <a href="/about">Tutvustus</a>
     <a href="/contact">Kontakt</a>
     <a href="/profile">Profiil</a>
@@ -155,10 +155,10 @@
 <main>
     <div class="profile-info">
         <h2>Kasutaja Profiil</h2>
-        <p>Kasutajanimi: <span id="username"></span></p>
-        <p>Eesnimi: <span id="firstName"></span></p>
-        <p>Perekonnanimi: <span id="lastName"></span></p>
-        <p>Vanus: <span id="age"></span></p>
+        <p>Kasutajanimi: <%= user.username %></p>
+        <p>Eesnimi: <%= user.firstName %></p>
+        <p>Perekonnanimi: <%= user.lastName %></p>
+        <p>Vanus: <%= user.age %></p>
         <button onclick="openFeedbackModal()">Anna Tagasisidet</button>
         <div class="feedback-list" id="feedbackList">
             <h2>Tagasiside:</h2>
@@ -199,12 +199,11 @@
                 feedbackList.appendChild(feedbackHeader);
 
                 existingFeedback.forEach((feedback, index) => {
-                const feedbackItem = document.createElement('div');
-                feedbackItem.classList.add('feedback-item');
-                feedbackItem.textContent = `${index + 1}. ${feedback}`;
-                feedbackList.appendChild(feedbackItem);
-            });
-
+                    const feedbackItem = document.createElement('div');
+                    feedbackItem.classList.add('feedback-item');
+                    feedbackItem.textContent = `${index + 1}. ${feedback}`;
+                    feedbackList.appendChild(feedbackItem);
+                });
             }
         } else {
             console.error('Local storage ei ole toetatud.');
